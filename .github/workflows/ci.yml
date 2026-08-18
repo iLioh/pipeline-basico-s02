@@ -1,0 +1,56 @@
+name: CI-CD Pipeline
+
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+
+  pipeline:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+      # Descargar código del repositorio
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+
+      # Configurar Python
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+
+      # Instalar herramienta de pruebas
+      - name: Instalar dependencias
+        run: |
+          pip install pytest
+
+
+      # Compilación
+      - name: Compilación del proyecto
+        run: |
+          echo "Iniciando compilación..."
+          python app.py
+          echo "Compilación completada"
+
+
+      # Pruebas automáticas
+      - name: Ejecutar pruebas unitarias
+        run: |
+          pytest
+
+
+      # Despliegue simulado
+      - name: Deploy simulado
+        run: |
+          echo "Preparando despliegue..."
+          echo "Copiando archivos a ambiente staging..."
+          echo "Despliegue exitoso"
